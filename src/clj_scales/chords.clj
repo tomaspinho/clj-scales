@@ -87,7 +87,7 @@
   [string]
 
   (let [parsed (regex/exec chord-string-re (clojure.string/lower-case string))
-        root (symbol (clojure.string/upper-case (:note parsed)))
+        root (keyword (clojure.string/upper-case (:note parsed)))
         chord-type (:type parsed)]
     (assert (.contains notes/notes root) "Root note is not a note.")
 
@@ -118,7 +118,7 @@
   (assert (and (>= (count chord) 3) (<= (count chord) 4))
           "Chord does not have 3 or 4 notes.")
 
-  (str (first chord)
+  (str (name (first chord))
     (let [interval-2nd (notes/intervalBetween (first chord) (second chord))
           interval-3rd (notes/intervalBetween (first chord) (nth chord 2))
           interval-4th (if (nth chord 3 nil)

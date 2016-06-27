@@ -1,6 +1,6 @@
 (ns clj-scales.notes)
 
-(def notes ['C 'C# 'D 'D# 'E 'F 'F# 'G 'G# 'A 'A# 'B])
+(def notes [:C :C# :D :D# :E :F :F# :G :G# :A :A# :B])
 
 (defn intervalBetween
 
@@ -47,3 +47,15 @@
 
   [note x]
   (note+ note (- x)))
+
+(defn equivalent
+
+  "Returns the equivalent note in our vector of given note.
+  e.g. Bb = A#; F## = G."
+
+  [note]
+
+  (let [note (name note)]
+    (note+ )
+
+  ))
