@@ -54,3 +54,15 @@
       (is (= (note- :B -1) :C#))
       (is (= (note- :C -6) :C))
       (is (= (note- :C -7) :D)))))
+
+(deftest equivalent-test
+  (testing "flats"
+    (is (= (equivalent :Ab) :G#))
+    (is (= (equivalent :Abb) :G))
+    (is (= (equivalent :Abbb) :F#))
+    (is (= (equivalent :Cb) :B)))
+  (testing "sharps"
+    (is (= (equivalent :G#) :G#))
+    (is (= (equivalent :G##) :A))
+    (is (= (equivalent :G###) :A#))
+    (is (= (equivalent :B#) :C))))
