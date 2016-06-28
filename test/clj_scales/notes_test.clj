@@ -66,3 +66,16 @@
     (is (= (equivalent :G##) :A))
     (is (= (equivalent :G###) :A#))
     (is (= (equivalent :B#) :C))))
+
+(deftest equivalent-from-notename-test
+  (testing "flats"
+    (is (= (equivalent-from-notename :A :B) :Bbb))
+    (is (= (equivalent-from-notename :Abb :B) :Bbbbb))
+    (is (= (equivalent-from-notename :Abbb :B) :Bbbbbb))
+    (is (= (equivalent-from-notename :Cb :B) :B))
+    (is (= (equivalent-from-notename :B :C) :Cb)))
+  (testing "sharps"
+    (is (= (equivalent-from-notename :G# :F) :F###))
+    (is (= (equivalent-from-notename :G## :A) :A))
+    (is (= (equivalent-from-notename :G### :A) :A#))
+    (is (= (equivalent-from-notename :C :B) :B#))))
