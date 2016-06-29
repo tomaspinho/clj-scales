@@ -4,8 +4,15 @@
 
 (def c-major-scale-notes [:C :D :E :F :G :A :B])
 
-(def major-intervals [1 1 0.5 1 1 1 0.5])
-(def minor-intervals [1 0.5 1 1 0.5 1])
+;; The following could have been generated programatically, but this is good
+;; for self documentation of the library.
+(def major-intervals      [ 1   1   0.5 1   1   1   0.5 ])
+(def dorian-intervals     [ 1   0.5 1   1   1   0.5 1	  ])
+(def phrygian-intervals   [ 0.5 1   1   1   0.5 1   1   ])
+(def lydian-intervals     [ 1   1   1   0.5 1   1   0.5 ])
+(def mixolydian-intervals [ 1   1   0.5 1   1   0.5 1   ])
+(def minor-intervals      [ 1   0.5 1   1   0.5 1   1   ])
+(def locryan-intervals    [ 0.5 1   1   0.5 1   1   1   ])
 
 (defn apply-intervals
   ; TODO take care of offset for root note
@@ -38,5 +45,11 @@
                             (concat result (list corrected-res))))))))
 
 (defn major [note] (apply-intervals note major-intervals))
+(defn ionian major)
+(defn dorian [note] (apply-intervals note dorian-intervals))
+(defn phrygian [note] (apply-intervals note phrygian-intervals))
+(defn lydian [note] (apply-intervals note lydian-intervals))
+(defn mixolydian [note] (apply-intervals note mixolydian-intervals))
 (defn minor [note] (apply-intervals note minor-intervals))
-
+(defn aeolian minor)
+(defn locryan [note] (apply-intervals note locryan-intervals))
