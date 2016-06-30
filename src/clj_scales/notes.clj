@@ -128,3 +128,11 @@
     (keyword (str
                (name notename)
                (apply str (repeat (math/abs difference) accident))))))
+
+(defn notename-from-note
+
+  ; Returns the base notename from note. e.g. C# => C; Cb => C
+
+  [note]
+
+  (keyword (str (first (name note)))))

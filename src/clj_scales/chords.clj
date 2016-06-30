@@ -3,14 +3,18 @@
             [clj-scales.notes :as notes]
             [net.cgrand.regex :as regex]))
 
+; In order to properly generate these chords, we use some tricks to get them
+; scale modes where they are the tonic triad.
+(defn- tonic-chord-from-scale
+  [scale]
+  (list (nth scale 0) (nth scale 2) (nth scale 4)))
+
 (defn major
   "Returns the notes of the major chord of note."
 
   [note]
-  ;(assert (.contains notes/notes note))
 
-  (let [major-scale (scales/major note)]
-    (list (nth major-scale 0) (nth major-scale 2) (nth major-scale 4))))
+  (tonic-chord-from-scale (scales/major note)))
 
 (defn minor
   "Returns the notes of the minor chord of note."
@@ -18,8 +22,7 @@
   [note]
   (assert (.contains notes/notes note))
 
-  (let [posNote (.indexOf notes/notes note)]
-    (list note (notes/note+ note 1.5) (notes/note+ note 3.5))))
+  (tonic-chord-from-scale (scales/minor note)))
 
 (defn diminished
   "Returns the notes of the diminished chord of note."
@@ -27,17 +30,22 @@
   [note]
   (assert (.contains notes/notes note))
 
-  (let [posNote (.indexOf notes/notes note)]
-    (list note (notes/note+ note 1.5) (notes/note+ note 3))))
+  (tonic-chord-from-scale (scales/locrian note)))
 
+; This is a special case because augmented tonic triads do not occur in western
+; modes.
 (defn augmented
   "Returns the notes of the augmented chord of note."
 
   [note]
   (assert (.contains notes/notes note))
 
-  (let [posNote (.indexOf notes/notes note)]
-    (list note (notes/note+ note 2) (notes/note+ note 4))))
+  (let [major-chord (tonic-chord-from-scale (scales/major note))
+        old-fifth (nth major-chord 2)
+        new-fifth (notes/equivalent-from-notename
+                    (notes/note+ old-fifth 0.5)
+                    (notes/notename-from-note old-fifth))]
+    (list (nth major-chord 0) (nth major-chord 1) new-fifth)))
 
 (defn add-6th
   "Returns a chord that corresponds to chord with a 6th added."

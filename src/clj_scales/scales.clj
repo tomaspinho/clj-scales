@@ -12,7 +12,7 @@
 (def lydian-intervals     [ 1   1   1   0.5 1   1   0.5 ])
 (def mixolydian-intervals [ 1   1   0.5 1   1   0.5 1   ])
 (def minor-intervals      [ 1   0.5 1   1   0.5 1   1   ])
-(def locryan-intervals    [ 0.5 1   1   0.5 1   1   1   ])
+(def locrian-intervals    [ 0.5 1   1   0.5 1   1   1   ])
 
 (defn apply-intervals
   ; Prepares the arguments for execution of the recursive function:
@@ -54,4 +54,4 @@
 (defn mixolydian [note] (apply-intervals note mixolydian-intervals))
 (defn minor [note] (apply-intervals note minor-intervals))
 (def aeolian minor)
-(defn locryan [note] (apply-intervals note locryan-intervals))
+(defn locrian [note] (apply-intervals note locrian-intervals))

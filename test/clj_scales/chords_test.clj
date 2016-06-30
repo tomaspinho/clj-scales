@@ -9,19 +9,19 @@
     (is (= (major :C#) '(:C# :E# :G#))))
 
   (testing "minor-chords"
-    (is (= (minor :C) '(:C :D# :G)))
+    (is (= (minor :C) '(:C :Eb :G)))
     (is (= (minor :B) '(:B :D :F#)))
     (is (= (minor :C#) '(:C# :E :G#))))
 
   (testing "diminished-chords"
-    (is (= (diminished :C) '(:C :D# :F#)))
+    (is (= (diminished :C) '(:C :Eb :Gb)))
     (is (= (diminished :B) '(:B :D :F)))
     (is (= (diminished :C#) '(:C# :E :G))))
 
   (testing "augmented-chords"
     (is (= (augmented :C) '(:C :E :G#)))
-    (is (= (augmented :B) '(:B :D# :G)))
-    (is (= (augmented :C#) '(:C# :F :A)))))
+    (is (= (augmented :B) '(:B :D# :F##)))
+    (is (= (augmented :C#) '(:C# :E# :G##)))))
 
 (deftest chord-modifiers
   (testing "6th"
@@ -33,7 +33,7 @@
     (is (= (add-7th (major :C)) '(:C :E :G :B)))
     (is (= (add-7th (major :B)) '(:B :D# :F# :A#)))
     (is (= (add-7th (major :C#)) '(:C# :E# :G# :C)))
-    (is (= (add-7th (minor :C)) '(:C :D# :G :B)))
+    (is (= (add-7th (minor :C)) '(:C :Eb :G :B)))
     (is (= (add-7th (minor :B)) '(:B :D :F# :A#)))
     (is (= (add-7th (minor :C#)) '(:C# :E :G# :C))))
 
@@ -57,18 +57,18 @@
     (is (= (chord-string->chord "Bmaj") '(:B :D# :F#)))
     (is (= (chord-string->chord "C#maj") '(:C# :E# :G#)))
 
-    (is (= (chord-string->chord "Cm") '(:C :D# :G)))
-    (is (= (chord-string->chord "Cmin") '(:C :D# :G)))
+    (is (= (chord-string->chord "Cm") '(:C :Eb :G)))
+    (is (= (chord-string->chord "Cmin") '(:C :Eb :G)))
     (is (= (chord-string->chord "Bmin") '(:B :D :F#)))
     (is (= (chord-string->chord "C#min") '(:C# :E :G#)))
 
-    (is (= (chord-string->chord "Cdim") '(:C :D# :F#)))
+    (is (= (chord-string->chord "Cdim") '(:C :Eb :Gb)))
     (is (= (chord-string->chord "Bdim") '(:B :D :F)))
     (is (= (chord-string->chord "C#dim") '(:C# :E :G))))
 
     (is (= (chord-string->chord "Caug") '(:C :E :G#)))
-    (is (= (chord-string->chord "Baug") '(:B :D# :G)))
-    (is (= (chord-string->chord "C#aug") '(:C# :F :A)))
+    (is (= (chord-string->chord "Baug") '(:B :D# :F##)))
+    (is (= (chord-string->chord "C#aug") '(:C# :E# :G##)))
 
   (testing "added"
     (is (= (chord-string->chord "C6") '(:C :E :G :A)))
@@ -79,8 +79,8 @@
     (is (= (chord-string->chord "Bmaj7") '(:B :D# :F# :A#)))
     (is (= (chord-string->chord "C#maj7") '(:C# :E# :G# :C)))
 
-    (is (= (chord-string->chord "Cm7") '(:C :D# :G :A#)))
-    (is (= (chord-string->chord "Cmin7") '(:C :D# :G :A#)))
+    (is (= (chord-string->chord "Cm7") '(:C :Eb :G :A#)))
+    (is (= (chord-string->chord "Cmin7") '(:C :Eb :G :A#)))
     (is (= (chord-string->chord "Bmin7") '(:B :D :F# :A)))
     (is (= (chord-string->chord "C#min7") '(:C# :E :G# :B))))
 
@@ -90,7 +90,7 @@
     (is (= (chord-string->chord "Bdom7") '(:B :D# :F# :A)))
     (is (= (chord-string->chord "C#dom7") '(:C# :E# :G# :B)))
 
-    (is (= (chord-string->chord "Cdim7") '(:C :D# :F# :A)))
+    (is (= (chord-string->chord "Cdim7") '(:C :Eb :Gb :A)))
     (is (= (chord-string->chord "Bdim7") '(:B :D :F :G#)))
     (is (= (chord-string->chord "C#dim7") '(:C# :E :G :A#))))
 
