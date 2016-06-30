@@ -1,15 +1,16 @@
 (ns clj-scales.chords
-  (:require [clj-scales.notes :as notes]
+  (:require [clj-scales.scales :as scales]
+            [clj-scales.notes :as notes]
             [net.cgrand.regex :as regex]))
 
 (defn major
   "Returns the notes of the major chord of note."
 
   [note]
-  (assert (.contains notes/notes note))
+  ;(assert (.contains notes/notes note))
 
-  (let [posNote (.indexOf notes/notes note)]
-    (list note (notes/note+ note 2) (notes/note+ note 3.5))))
+  (let [major-scale (scales/major note)]
+    (list (nth major-scale 0) (nth major-scale 2) (nth major-scale 4))))
 
 (defn minor
   "Returns the notes of the minor chord of note."

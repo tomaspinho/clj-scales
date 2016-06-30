@@ -15,7 +15,9 @@
 (def locryan-intervals    [ 0.5 1   1   0.5 1   1   1   ])
 
 (defn apply-intervals
-  ; TODO take care of offset for root note
+  ; Prepares the arguments for execution of the recursive function:
+  ; makes the note the starting point of the c-major-scale-notes and prepares
+  ; the accumulator and result list
   ([note intervals]
    (let [ note-name (-> note
                         name
@@ -45,11 +47,11 @@
                             (concat result (list corrected-res))))))))
 
 (defn major [note] (apply-intervals note major-intervals))
-(defn ionian major)
+(def ionian major)
 (defn dorian [note] (apply-intervals note dorian-intervals))
 (defn phrygian [note] (apply-intervals note phrygian-intervals))
 (defn lydian [note] (apply-intervals note lydian-intervals))
 (defn mixolydian [note] (apply-intervals note mixolydian-intervals))
 (defn minor [note] (apply-intervals note minor-intervals))
-(defn aeolian minor)
+(def aeolian minor)
 (defn locryan [note] (apply-intervals note locryan-intervals))
