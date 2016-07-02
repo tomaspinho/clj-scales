@@ -45,42 +45,62 @@
         new-fifth (notes/equivalent-from-notename
                     (notes/note+ old-fifth 0.5)
                     (notes/notename-from-note old-fifth))]
-    (list (nth major-chord 0) (nth major-chord 1) new-fifth)))
+    (concat (take 2 major-chord) (list new-fifth))))
 
 (defn add-6th
   "Returns a chord that corresponds to chord with a 6th added."
   [chord]
-  (concat chord (list (notes/note+ (first chord) 4.5))))
+  (concat chord (list (nth (scales/major (first chord)) 5))))
 
 (defn add-7th
-  "Returns a chord that corresponds to chord with a 7th added."
+  "Returns a chord that corresponds to chord with a major 7th added."
 
   [chord]
-  (concat chord (list (notes/note+ (first chord) 5.5))))
-
-(defn add-dom-7th
-  "Returns a chord that corresponds to chord with a dominant 7th added."
-  [chord]
-  (concat chord (list (notes/note+ (first chord) 5))))
+  (concat chord (list (nth (scales/major (first chord)) 6))))
 
 (defn add-min-7th
-  "Returns a chord that corresponds to chord with a minor 7th added.
-  This is = add-dom-7th."
+  "Returns a chord that corresponds to chord with a minor 7th added."
   [chord]
-  (add-dom-7th chord))
-
-(defn add-aug-7th
-  "Returns a chord that corresponds to chord with an augmented 7th added.
-  This is = add-dom-7th."
-  [chord]
-  (add-dom-7th chord))
+  (let [seventh (nth (scales/major (first chord)) 6)
+        seventh-name (notes/notename-from-note seventh)
+        minor-seventh (notes/equivalent-from-notename
+                        (notes/note- seventh 0.5) seventh-name)]
+  (concat chord (list minor-seventh))))
 
 (defn add-dim-7th
   "Returns a chord that corresponds to chord with a diminished 7th added.
   This is = add-6th."
   [chord]
-  ; We are not as pedantic as classical musicians and use the equivalency
-  (add-6th chord))
+  (let [seventh (nth (scales/major (first chord)) 6)
+        seventh-name (notes/notename-from-note seventh)
+        dim-seventh (notes/equivalent-from-notename
+                        (notes/note- seventh 1) seventh-name)]
+  (concat chord (list dim-seventh))))
+
+(defn major-seventh
+  "Returns the major seventh chord for note."
+  [note]
+  (add-7th (major note)))
+
+(defn minor-seventh
+  "Returns the minor seventh chord for note."
+  [note]
+  (add-min-7th (minor note)))
+
+(defn dominant-seventh
+  "Returns the dominant seventh chord for note."
+  [note]
+  (add-min-7th (major note)))
+
+(defn augmented-seventh
+  "Returns the augmented seventh chord for note."
+  [note]
+  (add-min-7th (augmented note)))
+
+(defn diminished-seventh
+  "Returns the diminished seventh chord for note."
+  [note]
+  (add-dim-7th (diminished note)))
 
 (def chord-string-re
   (let [note {\a \g}
@@ -116,10 +136,10 @@
               "maj" (add-7th chord)
               "m"   (add-min-7th chord)
               "min" (add-min-7th chord)
-              ""    (add-dom-7th chord)
-              "dom" (add-dom-7th chord)
+              ""    (add-min-7th chord)
+              "dom" (add-min-7th chord)
               "dim" (add-dim-7th chord)
-              "aug" (add-aug-7th chord)))))) ;TODO test this case
+              "aug" (add-min-7th chord)))))) ;TODO test this case
 
 (defn chord->chord-string
   ; Returns the string representation of chord.

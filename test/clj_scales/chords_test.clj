@@ -32,20 +32,46 @@
   (testing "7th"
     (is (= (add-7th (major :C)) '(:C :E :G :B)))
     (is (= (add-7th (major :B)) '(:B :D# :F# :A#)))
-    (is (= (add-7th (major :C#)) '(:C# :E# :G# :C)))
+    (is (= (add-7th (major :C#)) '(:C# :E# :G# :B#)))
     (is (= (add-7th (minor :C)) '(:C :Eb :G :B)))
     (is (= (add-7th (minor :B)) '(:B :D :F# :A#)))
-    (is (= (add-7th (minor :C#)) '(:C# :E :G# :C))))
+    (is (= (add-7th (minor :C#)) '(:C# :E :G# :B#))))
 
-  (testing "dom-7th"
-    (is (= (add-dom-7th (major :C)) '(:C :E :G :A#)))
-    (is (= (add-dom-7th (major :B)) '(:B :D# :F# :A)))
-    (is (= (add-dom-7th (major :C#)) '(:C# :E# :G# :B))))
+  (testing "min-7th"
+    (is (= (add-min-7th (major :C)) '(:C :E :G :Bb)))
+    (is (= (add-min-7th (major :B)) '(:B :D# :F# :A)))
+    (is (= (add-min-7th (major :C#)) '(:C# :E# :G# :B))))
 
   (testing "dim-7th"
-    (is (= (add-dim-7th (major :C)) '(:C :E :G :A)))
-    (is (= (add-dim-7th (major :B)) '(:B :D# :F# :G#)))
-    (is (= (add-dim-7th (major :C#)) '(:C# :E# :G# :A#)))))
+    (is (= (add-dim-7th (major :C)) '(:C :E :G :Bbb)))
+    (is (= (add-dim-7th (major :B)) '(:B :D# :F# :Ab)))
+    (is (= (add-dim-7th (major :C#)) '(:C# :E# :G# :Bb)))))
+
+(deftest chord-four-notes
+  (testing "major-seventh"
+    (is (= (major-seventh :C) '(:C :E :G :B)))
+    (is (= (major-seventh :B) '(:B :D# :F# :A#)))
+    (is (= (major-seventh :C#) '(:C# :E# :G# :B#))))
+
+  (testing "minor-seventh"
+    (is (= (minor-seventh :C) '(:C :Eb :G :Bb)))
+    (is (= (minor-seventh :B) '(:B :D :F# :A)))
+    (is (= (minor-seventh :C#) '(:C# :E :G# :B))))
+
+  (testing "dominant-seventh"
+    (is (= (dominant-seventh :C) '(:C :E :G :Bb)))
+    (is (= (dominant-seventh :B) '(:B :D# :F# :A)))
+    (is (= (dominant-seventh :C#) '(:C# :E# :G# :B))))
+
+  (testing "augmented-seventh"
+    (is (= (augmented-seventh :C) '(:C :E :G# :Bb)))
+    (is (= (augmented-seventh :B) '(:B :D# :F## :A)))
+    (is (= (augmented-seventh :C#) '(:C# :E# :G## :B))))
+
+  (testing "diminished-seventh"
+    (is (= (diminished-seventh :C) '(:C :Eb :Gb :Bbb)))
+    (is (= (diminished-seventh :B) '(:B :D :F :Ab)))
+    (is (= (diminished-seventh :C#) '(:C# :E :G :Bb)))))
 
 (deftest string->chord
   (testing "types"
@@ -77,22 +103,22 @@
 
     (is (= (chord-string->chord "Cmaj7") '(:C :E :G :B)))
     (is (= (chord-string->chord "Bmaj7") '(:B :D# :F# :A#)))
-    (is (= (chord-string->chord "C#maj7") '(:C# :E# :G# :C)))
+    (is (= (chord-string->chord "C#maj7") '(:C# :E# :G# :B#)))
 
-    (is (= (chord-string->chord "Cm7") '(:C :Eb :G :A#)))
-    (is (= (chord-string->chord "Cmin7") '(:C :Eb :G :A#)))
+    (is (= (chord-string->chord "Cm7") '(:C :Eb :G :Bb)))
+    (is (= (chord-string->chord "Cmin7") '(:C :Eb :G :Bb)))
     (is (= (chord-string->chord "Bmin7") '(:B :D :F# :A)))
     (is (= (chord-string->chord "C#min7") '(:C# :E :G# :B))))
 
     ; dom = without type
-    (is (= (chord-string->chord "C7") '(:C :E :G :A#)))
-    (is (= (chord-string->chord "Cdom7") '(:C :E :G :A#)))
+    (is (= (chord-string->chord "C7") '(:C :E :G :Bb)))
+    (is (= (chord-string->chord "Cdom7") '(:C :E :G :Bb)))
     (is (= (chord-string->chord "Bdom7") '(:B :D# :F# :A)))
     (is (= (chord-string->chord "C#dom7") '(:C# :E# :G# :B)))
 
-    (is (= (chord-string->chord "Cdim7") '(:C :Eb :Gb :A)))
-    (is (= (chord-string->chord "Bdim7") '(:B :D :F :G#)))
-    (is (= (chord-string->chord "C#dim7") '(:C# :E :G :A#))))
+    (is (= (chord-string->chord "Cdim7") '(:C :Eb :Gb :Bbb)))
+    (is (= (chord-string->chord "Bdim7") '(:B :D :F :Ab)))
+    (is (= (chord-string->chord "C#dim7") '(:C# :E :G :Bb))))
 
 (deftest chord->string
   (testing "types"
