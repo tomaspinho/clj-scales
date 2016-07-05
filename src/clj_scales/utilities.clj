@@ -3,6 +3,8 @@
             [clj-scales.chords :as chords]))
 
 
+(def roman-numerals [:I :II :III :IV :V :VI :VII])
+
 (defn update-values
 
  ; Updates values in a map m by applying f to them.
@@ -30,7 +32,7 @@
                           (nth scale (rem (+ iroot 4) (count scale))))]
 
           (recur (rest roots)
-                 (assoc result index chord)
+                 (assoc result (nth roman-numerals (dec index)) chord)
                  (inc index))))))
 
 (defn chordnames-in-scale
